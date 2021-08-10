@@ -1,0 +1,48 @@
+นำ event pattern กับ async มาร่วมด้วยช่วยกัน
+
+เป็นแนวคิดในการจัดการ Tx ข้าม service และข้อผูดมัดต้องน้อยด้วย
+
+Solution with Saga pattern
+
+	
+	serviceA --> 	serviceB --> 	serviceC
+	    |		    |	            |
+	   db		   db		    db
+
+	คือเมื่อ service A ทำงานเสร็จ ต้องไปเรียก B และ B ไปเรียก C ซึ่งการทำงานในแต่ละ service เป้นแบบ local Tx คือ ทำงานของ service ตัวเองให้ลุล่วงไปก่อน
+	แล้วเมื่อทำงานเสร็จ ก็สร้าง event ออกไปยัง service ต่อไป 
+
+รูปแบบของ Saga pattern 
+1. Choreography => ไม่มีคนกลางในการควบคุม
+2. Orchestration => ต้องการคนกลางในการคุม flow การทำงาน
+
+---
+
+1.Choreography: no centralized point of control
+
+	เมื่อ client ส่ง request event มาที่ Message broker, แต่ละ service ที่สนใจ evnt ก็จะ consume ไปใช้
+	และเมื่อ service ทำงานเสร็จแล้วก็จะสร้าง event ขึ้นมา ละ ก็รอให้ service อื่นมา consume ต่อไปเรื่อยๆ
+
+	ข้อดี
+	- เหมาสะกับ work flow ง่ายๆ
+	-ไม่มี logic การทำงานร่วมกัน
+	-ไม่มีจุดให้เกิดข้อผิดพลาด
+
+	ข้อเสีย
+	-ถ้ามีขั้นตอนมาก ระบบจะยากต่อการเพิ่ม, maintain, tracing, monitor
+	-เกิดการ cyclic คือ A เรียก B, B เรียก C, C เรียก A
+	-การ integrate test ยาก
+
+
+2.Orchestratio: Centralized poing of control
+
+	มีตัวกลางมาคุม คุมการทำงาน 1 request / 1 work flow มีการทำงานอะไรบ้าง => ต้องเพิ่ม layer/service ขึ้นมา 
+
+	ข้อดี
+	-ง่ายต่อการ maintain
+	-ไม่เกิด cyclic
+	
+	ข้อเสีย
+	-ใช้เวลาเพิ่มในการ dev (n+1 problem)
+	-เกิดเวลาที่รอมากขึ้น
+

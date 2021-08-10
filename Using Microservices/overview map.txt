@@ -1,0 +1,13 @@
+1.Query data from mulitple servies 
+ ->file 8-11
+
+
+2.Manage data consistency
+ ->file 12-15
+
+
+3.Observability
+ ->
+
+4.Testing
+ ->
