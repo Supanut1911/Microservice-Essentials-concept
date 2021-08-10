@@ -1,0 +1,47 @@
+Communicatino ระหว่าง service มี 2  รูปแบบ
+1. Sync 
+2. Async
+
+---
+
+Sync => Request and Response เรียกและรอ
+	
+	ผู้ส่ง ส่งว่าอยากได้อะไร(Request) และผู้ส่งก็ต้องรอ ผลลัพธ์นั้นกลับมา(Response) นานเท่าไรก็ต้องรอ
+
+	
+
+Async => Event based เรียก แต่ไม่รอ  จะเกิดคำถามคือ response จะกลับมาตอนไหน
+	ทุกสิ่ง ทุกอย่างในระบบ จะทำงานเมื่อเกิด event และเมื่อ event หนึ่งทำงานเสร็จสิ้น จะก่อให้เกิดผลลัพธ์ และ event ถัดไปเรื่อยๆ (change of event)
+
+	เช่นตัวอย่างการโอนเงิน
+
+	1.ผู้โอน (produce) จะสร้าง event transfer request 
+
+	2.Service การโอนเงิน ค่อยดูอยู่ว่ามี event trasfer request เกิดขึ้นมาไหม 
+		- ถ้ามีจะทำการดึงข้อมูล (consume) มาทำงาน
+
+	3.เมื่อ service โอนเงิน ทำงานสำเร็จ จะสร้าง event ถัดไปคือ event balance checked
+
+	4.service บัญชี จะค่อยดูอยู่ว่ามี event balance checked เกิดขึ้นมาไหม 
+		- ถ้ามีก็จะดึงข้อมูลไป process โดยใน event สามารถส่ง payload เข้าไปได้เพื่อระบุว่าต้องการข้อมูลของคนไหน
+
+	5.เมื่อตรวจสอบบัญชีเรียบร้อยแล้ว ก็จะสร้าง event balance passed 
+
+	6.service ถอนเงินที่เผ้ารอ ก็จะ consume event balance passed ไปใช้
+
+	7.service ถอนเงิน ทำงานเสร็จ ก็จะสร้าง event withdraw success 
+
+	8.service ฝากเงิน ก้จะคอยเฝ้าดูว่าเกิด event withdraw success ใหม 
+
+	9. และเมื่อทำเสร็จก็จะสร้าง event ต่อๆไป
+
+สังเกตุ แต่ละ service จะไม่ถูกมัดกันเลย ผูกกันแค่ event ต่างจาก sync ที่จะต้องรอ response กลับมาเสมอ ซึ่งใน microservice ทำให้ต้องเลือกว่าแต่ละกรณี
+จะใช้แบบไหน (sync / async)
+
+ใน micro service ซึ่งนิยมทำ async มากกว่า แต่ก็ไม่ใช่ทั้งหมด ยังต้องใช้ sync อยุ่ด้วย
+
+
+ประเด็นต่อมาคือ แล้วพวก event เหล่านี้จะโดนเก็บที่ไหน ???
+	- ใช้เครื่องมือเข้ามาช่วย => Redis, Kakfa, RabbitMQ, Active MQ
+
+*****สังเกตุว่าไม่ว่าจะเลือก sync / async เราต้องรู้ว่า bussiness process เป้นอย่างไร แบบไหนที่เหมาะสม

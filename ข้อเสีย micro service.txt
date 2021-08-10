@@ -1,0 +1,31 @@
+- มีทางเลือกหลากหลาย => ทางเลือกอาจนำไปสู็การแก้ปัญหา หรือปัญหาใหม่
+	- การแบ่ง service
+	- การเชื่อมต่อ service => sync, async 
+	- การ deploy
+	- การจัดการ data => ต่าง service อาจใช้ db ต่างกัน
+
+	- monitoring พฤติกรรม service 
+	-  เรื่อง security => authen / authorize
+	- provisioning server & storage  => การ deploy app & db
+
+- การแยก service 
+ 	- จะแยก service อย่างไรบ้าง => เมื่อไรเราต้องแบ่ง แบ่งแล้วมีปัญหาไรตามมาบ้าง 
+		แบ่งผิดไม่เป้นไร แต่ควรรู้ว่าผิดเร็วหรือช้า
+
+- ยากที่จะ testing
+	ต้องปรับเป้นการทดสอบแบบ auto มากขึ้น
+
+
+-Cascading failues
+	ถ้ามี service บาง service มีปัญหาขึ้นมาจะกระทบ service อื่นด้วย
+
+
+- Take time to start
+	ใช้เวลาในการเตรียมตัวเพื่อจะใช้ micro service มากกว่าปกติ
+
+	- รูปแบบการแยก service
+	-การสื่อสารระหว่าง service
+	-การจัดทีม
+	-รูปแบบการ deploy => จาก manual เป็น auto
+	-รูปแบบการเตรียม infrastructure & monitoring
+	

@@ -1,0 +1,16 @@
+จะใช้ microservice ต้องเข้าใจอะไรบ้าง ??
+
+1. การดึงข้อมูลจากหลาย service มารวมกัน (Query data from mulitple servies)
+2.การจัดการ การถูกต้องของข้อมูลที่อยู่ต่าง servie กัน (Manage data consistency)
+3.การ monitorระบบ  (Observability)
+4.ทดสอบอย่างไรว่าการทำงานระหว่าง service มันถูกต้อง  (Testing)
+
+1Query data from mulitple servies
+
+	จากนิยม microservice จึงทำให้มีการแยก data ออกจากกันอย่างชัดเจน =>ปัญหาที่ตามมาคือ เวลาที่เราต้องการใช้งาน data จากหลายๆ service
+		เช่น ระบบการทำ report ที่ต้องการ data จาก 3 service
+
+	3 solution
+		- API composition
+		- Storing copy of data
+		- CQRS (command Query responsibility Segregation)

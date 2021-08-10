@@ -1,0 +1,24 @@
+** แต่ละ service อย่างน้อยต้องมีข้อผูกมัดที่น้อย ==> Loose coupling
+
+Types of coupling
+	
+1. Tight coupling => แต่ละ service ผูกมัดกันอย่างรุนแรง , เมื่อมีบาง service แก้ไข จะกระทบอีก service
+
+2. Loose coupling => แยกอิสระมากขึ้นจาก tight coupling แต่ยังมีการสื่อสารกันอยู่
+
+3. No coupling => อิสระต่อกัน ไม่ขึ้นต่อกันเลย
+
+
+
+การแยก service ย่อยแล้ว แต่ยังใช้ 1 db => ถือว่ายังเป้น tight coupling อยู่
+
+การแยก service และมีแต่ละ db => จึงจะถือว่าเป็น loose coupling 
+
+
+ปัญหาต่อมา
+
+1 การติดต่อกันระหว่าง servcice => อาจทำให้เกิด communicate coupling ได้ => เพราะอาจจะเกิด tight coupling กันอยู่
+
+	โจทย์ต่อไปคือ จะใช้รูปแบบการสื่อสารแบบไหน เพื่อลดการเกิด tight coupling ให้ลดลง
+
+2 .พอแยก db เยอะ ก็จะเกิดปัญหาตามมาว่า เราจะจัดการ db จำนวนมากยังไง????

@@ -1,0 +1,61 @@
+Banking
+
+	ระบบโอนเงิน  ประกอบด้วย 
+	- บัญชีธนาคารของผู้ใช้
+	- ขั้นตอนการฝากเงิน
+	- ขั้นตอนการถอนเงิน
+	- เก็บใน db
+
+
+
+แบ่งมาเป็น 2 service
+	
+	1 Transfer servcie
+		การโอนเงิน
+
+	2 Account service 
+		บัญชี
+		การถอนเงิน
+		การฝากเงิน
+
+	แบ่งระบบ ที่ทำงานแยกกัน ออกมาก่อน
+
+	1 db
+
+
+เมื่อเวลาผ่านไปพบว่า account service มีการใช้งานเยอะขึ้น มีบัญชีมากขึ้น จึงแบ่ง service ย่อย
+
+	1 Transfer servcie
+		การโอนเงิน
+
+	2 Account service 
+		บัญชี
+
+	3 Withdraw service
+		การถอนเงิน
+	
+	4 Deposit service
+		การฝากเงิน
+	
+	1 db
+
+	แยกออกมาเพื่อให้ service ทำงานอย่างใดอย่างหนุึ่งไปเลย bussiness logic จึงแยกกัน  แต่ก็ยังใช้ 1 db
+
+
+ปัญหาคือใช้ 1 db ร่วมกัน => อยากให้อิสระต่อกัน
+
+
+	1 Transfer servcie	-> db
+		การโอนเงิน
+
+	2 Account service 	-> db
+		บัญชี
+
+	3 Withdraw service	-> db
+		การถอนเงิน
+	
+	4 Deposit service	-> db
+		การฝากเงิน
+
+
+	

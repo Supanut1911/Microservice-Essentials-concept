@@ -1,0 +1,9 @@
+เป็น architec โดยจะรวม service ต่างๆเข้าไว้ด้วยกัน และผูดมันกันอย่างหลวมๆ หรือไม่ผูดมักกันเลย => deploy ได้อิสระ => แต่ละservice ตอบสนองต่อ bussiness เป็นหลัก
+
+reacp
+	What are microservices?
+	-1. แต่ละ service เป็นอิสระต่อกัน
+	-2.แต่ละ service ง่ายต่อการ deploy
+	-3.แต่ละ service scale แยกกันอย่างชัดเจน
+	-4.แต่ละ service focus ที่ business => bussiness first
+

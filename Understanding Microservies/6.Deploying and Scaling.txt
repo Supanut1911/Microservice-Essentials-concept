@@ -1,0 +1,29 @@
+การ deploy และ scaling ที่ง่าย เพราะแต่ละ service ถูกแยกออกมาเป้น service เล็กๆ
+
+	- กล้าที่จะ deploy ได้บ่อย ง่าย และ อิสระ
+	
+	
+	-เลือก scale ที่ service นั้นๆ ได้
+		-scale up: เพิ่ม service ขึ้นมาเรื่อยๆ เพื่อรองรับตอนที่คนเข้ามาเยอะๆ
+			
+		-scale down: ลด service ลง เพื่อรองรับตอนที่คนลดลง
+
+	เรียกว่า Elastic scale => scale ได้ยืดหยุ่นตามผู้ใช้งาน
+
+ซึ่งการจะทำให้ deploy และ scale จะต้องพึ่งพาการทำแบบ auto (automation process)
+	ทำ manual ไม่ไหว เพราะ service มีจำนวนมาก
+
+
+	process => CONTINUOUS DEPLOYMENT 
+
+		Dev => Build => Test => Deploy => Monitor => Dev
+
+
+	- build / วิเคราะห์ source code ว่าดีไหม
+	- test ใน level ต่างๆ
+	- deploy dev ไปบน env ต่าง
+	- deploy prod 
+
+
+tools ช่วยในการ scale และ  deploy 
+	- Docker & K8s	=> build, deploy, scale
