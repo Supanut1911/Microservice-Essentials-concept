@@ -1,0 +1,43 @@
+Log aggresgation & centralized log
+
+
+เก็บข้อมูล request, error หรือการทำงานต่างๆ ตามช่วงเวลาต่างๆ ใน log file 
+
+ใน micro service ก็จะเก็บ log แยกกันในแต่ละ service แล้วเราจะจัดการกับ log ที่กระจายในแต่ละ service อย่างไร ?? และต้องมี format log อย่างไร
+
+
+1.Format log
+	จะเก็บในรูปแบบ semi structure
+	
+	timestamp | PID | Loglevel | message
+
+	สิ่งที่ไม่ชัดเจนคือ log message => ควรทำให้เป้น pattern ที่ชัดเจน
+
+		better structure of logs
+		-1 เพิ่ม UUID / tracing / correlation id
+		-2 ใช้รูปแบบ key-value
+		-3 ใช้ JSON แทน plaintext
+
+
+2  จะจัดการ log ที่กระจายในแต่ละ service อย่างไร ???
+	จัดการเก็บไว้ตรงกลาง (centralized log)
+	1.เก้บข้อมูลมาไว้ที่เดียวกัน
+	2. เข้าถึงได้ง่าย
+	3.ใช้งานได้ง่าย
+
+	centralized log system => LKEB (logstash kibana elasticsearch beats)
+		-> beats เป็น agent ไปติดอยู่กับแต่ละ service เพื่อทำการ อ่าน / monitor log ต่างๆ ละส่งออกไปเก็บที่ elastic search หรือ จะส่งไปแปลงข้อมูล(เพิ่ม/ลบ) / filter ที่ logstash ก่อนที่จะส่งเข้า elastic search
+		และตัว kibana เป็นตัว vituralize data แสดงผลในรูปแบบ graph ให้ผู้ใช้งานเข้าถึงได้ง่าย
+
+
+ปัญหา centralize log system
+	- ยากต่อการบอก log ถ้าไม่เพิ่ม uuid / tracing / correlation id เข้ามาใน message 
+
+
+	---centralized log system => designed to make ur life easier ---
+
+
+
+		
+
+				

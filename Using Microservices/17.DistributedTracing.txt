@@ -1,0 +1,12 @@
+1.ใช้ดู end to end flow 
+2.แต่ละ flow วิ่งเข้า service ไหนบ้าง มี latency เป็นอย่างไรบ้าง และการระบุว่ามาจาก flow เดียวกัน ก็ให้ส่ง UUID ข้าม service ไปด้วย และต้องมีการรวม เข้าด้วยกัน (distributed tracing system) โดยส่งแบบ UDP ซึ่งนจะไม่มีปัญหาต่อ service
+
+Distributed tracing format => ใช้มาตรฐาน OpenTelemetry
+ 	โครงสร้าง tracing message ประกอบด้วย  Traces และ spans
+		spans รวมๆกัน จะเป็น Traces
+
+	tools => Zipkin, Jaeger
+
+	การเก็บจะเป็น sampling data => จะเก็บ 1-5%
+
+

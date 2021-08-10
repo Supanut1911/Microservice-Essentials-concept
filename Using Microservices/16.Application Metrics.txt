@@ -1,0 +1,29 @@
+Observability => ดูว่าระบบทำงานได้ถูกต้องหรือไม่ / เกิดปัญหาไรขึ้นบ้าง
+	คือการทำความเข้าใจระบบ ต่างจาก monitoring 
+
+ 	monitoring มองในมุม infrastructure => cpu, memory, io
+	observability มองในมุม service / app
+
+Observability ใน miroservice มี 3 ส่วน
+1. Application metric => ตัวเลขต่างๆ, success rate, fail rate
+2. Traces => แต่ละ service มีการทำงานสัมพันกันอย่างไรบ้าง
+3. Logs	=> log ของแต่ละ service 
+	Log aggregation => การรวม log หลายๆ service เข้าด้วยกัน
+	centralized log => การรวม log มาไว้ตรงกลาง
+
+
+1.Application metric
+	- ดุ request ในหนึ่งหน่วยเวลา , 
+	-success rate, fail rate
+	- ชนิดของ fail
+	- service health check
+
+	**ควรคุยและออกแบบตั้งแต่ต้นว่า ต้องการดูค่าไรบ้าง
+
+	tools => Prometheus, Grafana
+		Prometheus => เป็น db ในการเก็บข้อมูล metric ต่างๆ
+			 
+		Grafana => การทำ vituralization การ alert
+
+			service A & B   --pull--> Prometheus --pull--> Grafana
+
