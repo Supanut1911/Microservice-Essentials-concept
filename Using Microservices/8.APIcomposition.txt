@@ -1,0 +1,29 @@
+เป็นการรวม data จากหลายๆ service โดยการสร้าง service ใหม่ขึ้นมา
+
+	เช่น
+		api composition service จะดึงข้อมูล จาก 2 service(Account service & withdraw service) มาเก้บรวมไว้
+		 และเมื่อ มี service อื่นต้องการ ก็ให้มาดึงที่ api composition service (Report service)
+
+		การทำงานของ api composition ดึงข้อมูลตามลำดับ
+		1.ดึงข้อมูลทั้งหมดของ account service (get all accounts)
+		2.ดึงข้อมูล withdraw service ทั้งหมด ของแต่ละ account 
+
+		และปลายทาง(report)ก็จะเอาไปใช้งาน
+
+	
+
+API composition มีได้หลายรูปแบบ
+
+	- API composition: API gateway (nginx, Kong)
+
+	- BFF (BackendforFronent)
+
+
+ข้อเสียของ api composition / ปัญหาที่ตามมา
+	
+	- เราเพิ่ม layer เข้ามา  / เพิ่มความซับซ้อนให้กับระบบ (n+1 problem)
+	- เกิด latency มากขึ้น ส่งผลต่อ response time
+	-อาจทำให้ระบบล่มได้ง่าย
+
+
+		

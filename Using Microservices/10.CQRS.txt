@@ -1,0 +1,36 @@
+Query	=> read
+Command => write, update, delete
+
+	เช่น มี 2 service
+		- product service (write)
+		- Product search service (read)
+		ชี้ไปที่  db เดียวกัน
+
+	ควรแยก db ต่อกัน
+
+		- product service (write) -> db
+ 
+		- Product search service (read) -> db
+
+	เมื่อแยกทำให้การ scale เป็นไปตามการใช้งานได้
+
+	เช่น 
+		db product service => ใช้ postgres
+			ใช้ postgres เพราะเหมาะแก่การทำงานเป็น Tx
+
+		db search product service => ใช้ elasticsearch	
+			ใช้ elasticsearch เหมาะกับการค้นหาข้อมูลจำนวนมาก
+			ข้อเสีย
+				- ต้องดูแลรักษา db ที่มีชนิดต่างกัน มีงานเพิ่มขึ้น (งาน ops)
+
+งานต่อมาจากการแยก db คือ การ sync data ระหว่าง 2 db อย่างไร
+
+	เช่น เมื่อมีการแก้ไข เพิ่ม/ลบ ที่ product service แล้ว ตัว product search จะต้องค้นหา product นั้นเจอด้วย และต้องเป็นที่ update แล้ว
+
+เทคนิคการ sync data ระหว่าง service
+	1. Batching process => ทำการตั้งเวลา update
+
+	2. synchoronus process => เมื่อมีการ write ให้ update ฝั่ง read ทันที
+
+แต่ 1 และ 2 จะทำให้เกิดการผูกมัดกันอย่างรุนแรง => จึงเกิดแนวคิดใหม่: Event-based with async process
+		

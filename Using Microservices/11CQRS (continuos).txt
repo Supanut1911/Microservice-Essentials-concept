@@ -1,0 +1,20 @@
+Event-based with async process เป้นที่มาของ cqrs
+
+เริ่มที่การ read และ write ถูกแยกออกจากกัน (ยังอยู๋ใน service เดียวกันนะ แต่แยกเป็น process และยังใช้ db เดียวกัน)
+	ซึ่งจะเอื้อในการแยก db มาเป็น 2 db (query db & command db)
+
+	ต่อมาคือต้องการ sync ข้อมูล ของ 2 db => นำ event base เข้ามาช่วย
+		-เมื่อไรก็ตามที่เกิดการเพิ่มข้อมูล ก็จะเก้บข้อมูลลง command db ไว้ก่อน และจากนั้นก็จะ publish event ขึ้นมา
+
+		-ฝั่ง read ก็จะมี event handler ตรวจสอบ event ใหม่ เพื่อ update ไปยัง query db และจะทำการ sync ระหว่าง read และ write
+			และตัว event base จะเป็นแบบ async ซึ่งจะไม่ผูกมัดกันเกินไป
+
+
+		และสามารถแยกย่อยเป็น service สำรหับ read และ สำหรับ write ได้
+
+ข้อเสีย
+	- มีความซับซ้อนสูงมาก (ไม่ควรใช้ทุกกรณี)
+	- over engineer
+	- กด lag time เพราะเป็น async
+	
+
