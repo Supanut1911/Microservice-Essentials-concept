@@ -1,0 +1,38 @@
+microservice testing เพื่อเพิ่มความมันใจว่าระบบ เป็นไปตาม business
+
+รูปแบบการ test
+1.unit test
+2.integration testing
+3.service component test
+4.contract test
+5.end to end test
+
+micro service เน้น -> service component test, contract test
+
+จะต้องแบ่งโครงสร้าง(layer) code ให้ชัดเจน
+	1. controller
+	2. service
+	3. Domain: ส่วนข้อมูลที่ใช้แลกเปลี่ยนภายใจ
+	4. Repository: ส่วนที่ต่อกับ db เพื่อแลกเลี่ยนข้อมูล
+	5. gate way
+
+
+1. unit test
+	-ทำ unit test ทุก layer ไม่มีการ test ข้าม layer
+
+
+2. Integration test
+	- สดสอบส่วนขอบที่เชื่อมกับ db และระบบรอบข้าง
+
+3. service component test
+	- ทดสอบภายใน controller-service-domain โดยส่ง request และได้รับ response ตามคาดหวัง โดยจะ mock gateway และ repository
+
+4.Contract test
+	- สัญญาว่าจะทดสอบ => เป็นสัญาญาที่เป้นการ call ข้าม service 
+	tools => postman, pact
+
+5. end to end test
+	-ทดสอบทุก service ที่ทำงานร่วมกัน, ใช้เวลาในการเตรียม และทดสอบนาน
+
+
+goal ของการทดสอบ ทดสอบให้บ่อยเพื่อเพิ่มความมั่นในของระบบ => และต้องทดสอบเป็น automation
